@@ -1,0 +1,4 @@
+type Student @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  content: String
+}
