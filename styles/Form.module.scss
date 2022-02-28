@@ -1,0 +1,88 @@
+.container {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    width: 100%;
+    margin: 1em;
+    padding: 2em;
+    display: flex;
+    flex-flow: column wrap;
+    .textField {
+      label{
+        margin-top: 1em;
+        display: inline-block;
+      }
+      input {
+        width: 100%;
+        height: 3em;
+        border-radius: 5px;
+      }
+    }
+    .signature{
+      width: 100%;
+      height: 3em;
+      border-radius: 5px;
+    }
+    .submitButton{
+      margin: 3em 0;
+      border-radius: 5px;
+      border: none;
+      width: 100%;
+      background-color: #2196f3;
+      height: 3em;
+      cursor: pointer;
+    }
+
+    .box{
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+      padding: 1em;
+      border-radius: 5px;
+    }
+    .address{
+      p{
+        margin: 2em 0 0.2em 0;
+      }
+      label{
+        margin:0;
+      }
+
+      .addressFields{
+        display: flex;
+        flex-flow: column wrap;
+        justify-content: space-between;
+      }
+    }s
+    .agreements{
+      input{
+        margin-top: 0.5em;
+      }
+    }
+    input{
+      border-top-style: hidden;
+      border-right-style: hidden;
+      border-left-style: hidden;
+      border-bottom-style: groove;
+      background-color: #eee;
+    }
+  } 
+
+
+
+@media (min-width: 576px) {
+}
+/* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
+@media (min-width: 768px) {
+    .container{
+        width: 768px; 
+    }
+    .addressFields{
+      flex-direction: row !important;
+    }
+}
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+}
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+}
+
+
+  

@@ -3,7 +3,7 @@
   "serviceConfiguration": {
     "apiName": "nextamplified",
     "serviceName": "AppSync",
-    "gqlSchemaPath": "/tmp/amplify-1314a1f5-c367-4a3e-a184-a8205d55b70d/amplify/backend/api/nextamplified/schema.graphql",
+    "gqlSchemaPath": "/tmp/amplify-bde53103-9e2b-42fd-84d6-f32c57e22d19/amplify/backend/api/nextamplified/schema.graphql",
     "defaultAuthType": {
       "mode": "API_KEY",
       "keyDescription": "api key description",

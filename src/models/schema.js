@@ -10,8 +10,113 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "content": {
-                    "name": "content",
+                "officialName": {
+                    "name": "officialName",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "preferedName": {
+                    "name": "preferedName",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "studentID": {
+                    "name": "studentID",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "country": {
+                    "name": "country",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "city": {
+                    "name": "city",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "zipCode": {
+                    "name": "zipCode",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "phone": {
+                    "name": "phone",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "major": {
+                    "name": "major",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "interest": {
+                    "name": "interest",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "peerMentor": {
+                    "name": "peerMentor",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "meetingTime": {
+                    "name": "meetingTime",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "EOP_Scholar": {
+                    "name": "EOP_Scholar",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "units": {
+                    "name": "units",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "gpa": {
+                    "name": "gpa",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "documentUpload": {
+                    "name": "documentUpload",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "email": {
+                    "name": "email",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -62,5 +167,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "936448bf8f62a09b8078ac629b6c2f2f"
+    "version": "c49a41fd28503c5511714a170483d158"
 };

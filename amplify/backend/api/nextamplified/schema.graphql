@@ -1,4 +1,20 @@
 type Student @model @auth(rules: [{allow: public}]) {
   id: ID!
-  content: String
+  officialName: String
+  preferedName: String
+  studentID: String
+  country: String
+  city: String
+  zipCode: String
+  phone: String
+  major: String
+  interest: String
+  peerMentor: String
+  meetingTime: String
+  EOP_Scholar: String
+  units: String
+  gpa: String
+  documentUpload: String
+  email: String
 }
+ 

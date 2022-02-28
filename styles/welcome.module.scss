@@ -1,0 +1,45 @@
+.container{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    width: 100%;
+    margin: 1em;
+    padding: 2em;
+    display: flex;
+    flex-flow: column wrap;
+    min-height: 100vh;
+    button{
+        margin: 3em 0;
+        border-radius: 5px;
+        border: none;
+        width: 100%;
+        background-color: #2196f3;
+        height: 3em;
+        cursor: pointer;
+      }
+}
+
+
+
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column wrap;
+    
+}
+
+
+@media (min-width: 576px) {
+}
+/* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
+@media (min-width: 768px) {
+    .container{
+        width: 768px;
+    }
+}
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+}
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+}
+

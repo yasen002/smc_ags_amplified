@@ -1,3 +1,9 @@
+@font-face {
+  font-family: "Roboto";
+  src: local("Roboto"),
+    url(../utils//fonts/roboto/Roboto-Regular.ttf) format("truetype");
+}
+
 html,
 body {
   padding: 0;
@@ -13,4 +19,8 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
 }
