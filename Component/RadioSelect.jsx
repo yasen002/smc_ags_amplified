@@ -10,7 +10,7 @@ function RadioSelect({ data, selectHandler }) {
                 let ids = varNameGenerator(value, true);
                 return <div key={index} className={styles.row}>
                     <input onClick={selectHandler} type="radio" id={ids} name={data.name} defaultValue={value} />
-                    <label htmlFor={ids}> {value}</label><br />
+                    <label htmlFor={ids}>{value}</label><br />
                 </div>
             })}
         </div>
