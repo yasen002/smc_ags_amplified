@@ -18,8 +18,6 @@ const initialState = {
 }
 
 function Form({ attributes }) {
-    console.log("form form", attributes)
-
     const session = { email: attributes.email, name: (attributes.given_name + " " + attributes.family_name) }
     var unitsChoice = choiceProvider('unitsChoice')
     var mentoringCommiteeChoice = choiceProvider('mentoringCommiteeChoice')
@@ -95,51 +93,56 @@ function Form({ attributes }) {
 
     const submitHandler = async (e) => {
         e.preventDefault();
+        try {
 
-        var studentID = smcIDRef.current.value;
-        var officialName = session.name;
-        var country = countryRef.current.value;
-        var city = cityRef.current.value;
-        var zipCode = zipCodeRef.current.value;
-        var phone = phoneRef.current.value;
-        var email = session.email;
-        var major = majorRef.current.value;
-        var interest = studyGroupRef.current.value;
-        var signature = signatureRef.current.value;
-        var preferredName = preferredNameRef.current.value
-        var fileUploadCode = fileUploadConfirmCodeRef.current.value
-        var officialName = (session.name).replace(/ /g, '').toUpperCase();
-        var signedName = signature.replace(/ /g, '').toUpperCase();
-        if (officialName !== signedName) {
-            setSignatureWarning(`Your signature must excactly match your official full name: ${session.name}`); return;
-        } else {
-            setSignatureWarning(``);
+            var studentID = smcIDRef.current.value;
+            var officialName = session.name;
+            var country = countryRef.current.value;
+            var city = cityRef.current.value;
+            var zipCode = zipCodeRef.current.value;
+            var phone = phoneRef.current.value;
+            var email = session.email;
+            var major = majorRef.current.value;
+            var interest = studyGroupRef.current.value;
+            var signature = signatureRef.current.value;
+            var preferredName = preferredNameRef.current.value
+            var fileUploadCode = fileUploadConfirmCodeRef.current.value
+            var officialName = (session.name).replace(/ /g, '').toUpperCase();
+            var signedName = signature.replace(/ /g, '').toUpperCase();
+            if (officialName !== signedName) {
+                setSignatureWarning(`Your signature must excactly match your official full name: ${session.name}`); return;
+            } else {
+                setSignatureWarning(``);
+            }
+
+            const formData = {
+                studentID,
+                officialName,
+                country,
+                city,
+                zipCode,
+                phone,
+                email,
+                major,
+                interest,
+                preferredName,
+                documentUpload: fileUploadCode,
+                units: state.units,
+                peerMentor: state.pmc,
+                meetingTime: state.meetingAvailability,
+                EOP_Scholar: JSON.stringify(state.eop_gaurdian),
+                gpa: state.gpa,
+                membership: state.memberShip,
+                payment: "not received"
+            };
+
+            await DataStore.save(
+                new Student(formData)
+            );
+            router.replace("/ags/signup/success")
+        } catch (error) {
+            console.log(error, error.errorType)
         }
-
-        const formData = {
-            studentID,
-            officialName,
-            country,
-            city,
-            zipCode,
-            phone,
-            email,
-            major,
-            interest,
-            preferredName,
-            documentUpload: fileUploadCode,
-            units: state.units,
-            peerMentor: state.pmc,
-            meetingTime: state.meetingAvailability,
-            EOP_Scholar: JSON.stringify(state.eop_gaurdian),
-            gpa: state.gpa,
-            membership: state.memberShip,
-            payment: "not received"
-        };
-
-        await DataStore.save(
-            new Student(formData)
-        );
 
     }
     return (
