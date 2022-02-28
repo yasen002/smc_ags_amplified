@@ -6,7 +6,7 @@ import { Auth } from 'aws-amplify';
 import Layout from '../../../Component/layouts/Layout';
 import Button from '../../../Component/Button';
 
-export default function welcome({ signOut, user }) {
+export default function Welcome({ signOut, user }) {
     const [students, setStudents] = useState([])
 
     useEffect(() => {
