@@ -4,7 +4,8 @@ import RadioSelect from '../Component/RadioSelect'
 import Checkbox from '../Component/Checkbox'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-
+import { DataStore } from '@aws-amplify/datastore';
+import { Student } from '../src/models';
 const initialState = {
     units: "",
     pmc: "",
@@ -116,14 +117,30 @@ function Form({ attributes }) {
         }
 
         const formData = {
-            studentID, officialName, country, city, zipCode, phone,
-            email, major, interest, preferredName, documentUpload: fileUploadCode,
-            units: state.units, peerMentor: state.pmc, meetingTime: state.meetingAvailability,
-            EOP_Scholar: state.eop_gaurdian, gpa: state.gpa, membership: state.memberShip,
+            studentID,
+            officialName,
+            country,
+            city,
+            zipCode,
+            phone,
+            email,
+            major,
+            interest,
+            preferredName,
+            documentUpload: fileUploadCode,
+            units: state.units,
+            peerMentor: state.pmc,
+            meetingTime: state.meetingAvailability,
+            EOP_Scholar: JSON.stringify(state.eop_gaurdian),
+            gpa: state.gpa,
+            membership: state.memberShip,
             payment: "not received"
         };
 
-        console.log(formData)
+        await DataStore.save(
+            new Student(formData)
+        );
+
     }
     return (
         <div className={styles.container}>

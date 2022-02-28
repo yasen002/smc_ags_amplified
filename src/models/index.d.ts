@@ -11,7 +11,7 @@ type StudentMetaData = {
 export declare class Student {
   readonly id: string;
   readonly officialName?: string;
-  readonly preferedName?: string;
+  readonly preferredName?: string;
   readonly studentID?: string;
   readonly country?: string;
   readonly city?: string;
@@ -26,6 +26,8 @@ export declare class Student {
   readonly gpa?: string;
   readonly documentUpload?: string;
   readonly email?: string;
+  readonly membership?: string;
+  readonly payment?: string;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Student, StudentMetaData>);

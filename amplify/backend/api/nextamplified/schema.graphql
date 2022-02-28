@@ -1,7 +1,7 @@
 type Student @model @auth(rules: [{allow: public}]) {
   id: ID!
   officialName: String
-  preferedName: String
+  preferredName: String
   studentID: String
   country: String
   city: String
@@ -16,5 +16,7 @@ type Student @model @auth(rules: [{allow: public}]) {
   gpa: String
   documentUpload: String
   email: String
+  membership: String
+  payment: String
 }
  

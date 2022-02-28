@@ -17,8 +17,8 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "preferedName": {
-                    "name": "preferedName",
+                "preferredName": {
+                    "name": "preferredName",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -122,6 +122,20 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "membership": {
+                    "name": "membership",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "payment": {
+                    "name": "payment",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -167,5 +181,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "c49a41fd28503c5511714a170483d158"
+    "version": "1d6efcea862be4b09fe8792f5c0fbecb"
 };
