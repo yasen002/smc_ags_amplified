@@ -10,18 +10,6 @@
       "StackName": "amplify-agsnextamplified-dev-215037",
       "StackId": "arn:aws:cloudformation:us-east-1:971617184065:stack/amplify-agsnextamplified-dev-215037/87ee01b0-9923-11ec-9fd1-126f1e682697",
       "AmplifyAppId": "d7gutzxx1guto"
-    },
-    "categories": {
-      "storage": {
-        "Studentz6647tt7cjenba3e4726hn6m24dev": {
-          "tableName": "Student-z6647tt7cjenba3e4726hn6m24-dev",
-          "region": "us-east-1",
-          "arn": "arn:aws:dynamodb:us-east-1:971617184065:table/Student-z6647tt7cjenba3e4726hn6m24-dev",
-          "streamArn": "arn:aws:dynamodb:us-east-1:971617184065:table/Student-z6647tt7cjenba3e4726hn6m24-dev/stream/2022-02-28T19:10:07.673",
-          "partitionKeyName": "email",
-          "partitionKeyType": "S"
-        }
-      }
     }
   }
 }
