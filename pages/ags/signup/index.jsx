@@ -18,6 +18,7 @@ export default function Page({ signOut, user }) {
                 const { attributes } = user;
                 const { email } = attributes;
                 if (!isStudentMail(email)) {
+                    Auth.signOut({ global: true });
                     router.push("/ags/signup/unauthorizedemail")
                 } else {
                     setAttributes(attributes)
