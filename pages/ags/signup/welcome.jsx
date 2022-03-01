@@ -1,23 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import styles from '../../../styles/ags/signup/welcome.module.scss'
-import { DataStore } from '@aws-amplify/datastore';
-import { Student } from '../../../src/models';
 import { Auth } from 'aws-amplify';
 import Layout from '../../../Component/layouts/Layout';
 import Button from '../../../Component/Button';
 
 export default function Welcome({ signOut, user }) {
-    const [students, setStudents] = useState([])
 
-    useEffect(() => {
-        fetchStudents()
-        async function fetchStudents() {
-            const studentData = await DataStore.query(Student);
-            setStudents(studentData)
-            console.log(studentData);
-        }
-    }, [])
-    console.log(students)
+    // useEffect(() => {
+    //     fetchStudents()
+    //     async function fetchStudents() {
+    //         const studentData = await DataStore.query(Student);
+    //         setStudents(studentData)
+    //         console.log(studentData);
+    //     }
+    // }, [])
     return (
         <>
             <Layout>

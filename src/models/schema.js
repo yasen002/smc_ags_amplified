@@ -119,7 +119,7 @@ export const schema = {
                     "name": "email",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": []
                 },
                 "membership": {
@@ -161,6 +161,14 @@ export const schema = {
                     "properties": {}
                 },
                 {
+                    "type": "key",
+                    "properties": {
+                        "fields": [
+                            "email"
+                        ]
+                    }
+                },
+                {
                     "type": "auth",
                     "properties": {
                         "rules": [
@@ -181,5 +189,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "1d6efcea862be4b09fe8792f5c0fbecb"
+    "version": "b2f0fb7099b26a002082ee37c856bbf0"
 };

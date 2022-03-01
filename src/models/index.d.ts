@@ -25,7 +25,7 @@ export declare class Student {
   readonly units?: string;
   readonly gpa?: string;
   readonly documentUpload?: string;
-  readonly email?: string;
+  readonly email: string;
   readonly membership?: string;
   readonly payment?: string;
   readonly createdAt?: string;
