@@ -1,19 +1,26 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-nextamplified-dev-132935-authRole",
-      "UnauthRoleArn": "arn:aws:iam::971617184065:role/amplify-nextamplified-dev-132935-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::971617184065:role/amplify-nextamplified-dev-132935-authRole",
+      "AuthRoleName": "amplify-agsnextamplified-dev-215037-authRole",
+      "UnauthRoleArn": "arn:aws:iam::971617184065:role/amplify-agsnextamplified-dev-215037-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::971617184065:role/amplify-agsnextamplified-dev-215037-authRole",
       "Region": "us-east-1",
-      "DeploymentBucketName": "amplify-nextamplified-dev-132935-deployment",
-      "UnauthRoleName": "amplify-nextamplified-dev-132935-unauthRole",
-      "StackName": "amplify-nextamplified-dev-132935",
-      "StackId": "arn:aws:cloudformation:us-east-1:971617184065:stack/amplify-nextamplified-dev-132935/5dc03c10-9814-11ec-8655-1205e75b64c9",
-      "AmplifyAppId": "d3f5effmx6fheo"
+      "DeploymentBucketName": "amplify-agsnextamplified-dev-215037-deployment",
+      "UnauthRoleName": "amplify-agsnextamplified-dev-215037-unauthRole",
+      "StackName": "amplify-agsnextamplified-dev-215037",
+      "StackId": "arn:aws:cloudformation:us-east-1:971617184065:stack/amplify-agsnextamplified-dev-215037/87ee01b0-9923-11ec-9fd1-126f1e682697",
+      "AmplifyAppId": "d7gutzxx1guto"
     },
     "categories": {
-      "auth": {
-        "nextamplified": {}
+      "storage": {
+        "Studentz6647tt7cjenba3e4726hn6m24dev": {
+          "tableName": "Student-z6647tt7cjenba3e4726hn6m24-dev",
+          "region": "us-east-1",
+          "arn": "arn:aws:dynamodb:us-east-1:971617184065:table/Student-z6647tt7cjenba3e4726hn6m24-dev",
+          "streamArn": "arn:aws:dynamodb:us-east-1:971617184065:table/Student-z6647tt7cjenba3e4726hn6m24-dev/stream/2022-02-28T19:10:07.673",
+          "partitionKeyName": "email",
+          "partitionKeyType": "S"
+        }
       }
     }
   }
