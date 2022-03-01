@@ -1,7 +1,6 @@
 import React from 'react'
 import styles from "../../../styles/unauthorizedemail.module.scss"
 import Layout from '../../../Component/layouts/Layout'
-import Button from '../../../Component/Button'
 
 function success() {
     return (
