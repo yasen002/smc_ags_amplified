@@ -31,7 +31,7 @@ export default function Page({ signOut, user }) {
     }, [])
 
     return (
-        <Layout>
+        <Layout info={attributes}>
             {attributes !== null && <Form attributes={attributes} />}
         </Layout>
 
