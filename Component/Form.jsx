@@ -217,7 +217,7 @@ function Form({ attributes }) {
 
                 <div className={styles.textField}>
 
-                    <label htmlFor="virtualStudyGroup">An SMC club advisor will review your unofficial Transcript and AS student fees to verify your membership eligibility. Please upload proof of your GPA and AS student payment by<a href={transcriptUploadLink} style={{ textDecoration: 'underLine', color: 'blue' }}> submitting this Google form</a> to get your file uplaod confirmation code. <strong>Only SMC Advisors are allowed to acceess these files that you upload.</strong><br />Your file uplaod confirmation code.</label><br />
+                    <label htmlFor="virtualStudyGroup">An SMC club advisor will review your unofficial Transcript and AS student fees to verify your membership eligibility. Please upload proof of your GPA and AS student payment by<a href={transcriptUploadLink} style={{ textDecoration: 'underLine', color: 'blue' }}> submitting this Google form</a> to get your file uplaod confirmation code. <strong>Only SMC Advisors are allowed to access these files that you upload.</strong><br />Your file uplaod confirmation code.</label><br />
                     <input ref={fileUploadConfirmCodeRef} type='text' id='virtualStudyGroup' name='virtualStudyGroup'></input><br />
                     <p style={{ color: 'red' }}>{fileUploadWarning}</p>
                 </div>
