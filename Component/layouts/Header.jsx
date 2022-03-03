@@ -1,9 +1,8 @@
 import styles from "../../styles/header.module.scss"
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Auth } from 'aws-amplify';
 
 export default function Header({ info = false }) {
-    const [email, setEmail] = useState(null)
     useEffect(() => {
         if (info) {
             setEmail(info.email)
@@ -16,7 +15,7 @@ export default function Header({ info = false }) {
                 <style>{`.nojs-show { opacity: 1; top: 0; }`}</style>
             </noscript>
             <div className={styles.signedInStatus}>
-                {!email && email !== false && (
+                {!info?.email && (
                     <>
                         <span className={styles.notSignedInText}>
                             You are not signed in
@@ -30,13 +29,13 @@ export default function Header({ info = false }) {
                     </>
                 )}
 
-                {/* need this part for all signins */}
-                {email && (
+
+                {info.email && (
                     <>
                         <span className={styles.signedInText}>
                             <small>Signed in as</small>
                             <br />
-                            <strong>{email || info.name}</strong>
+                            <strong>{info.email || info.name}</strong>
                         </span>
                         <span
                             className={styles.button}
