@@ -166,7 +166,7 @@ function Form({ attributes }) {
                     <p>For the AGS members record, your current Address (input "International" if you are currently living outside of the U.S.) *</p>
                     <div className={styles.addressFields}>
                         <div className={styles.textField}>
-                            <label htmlFor="country">country *</label><br />
+                            <label htmlFor="country">Country *</label><br />
                             <input ref={countryRef} type='text' id='country' name='country' required></input><br />
                         </div>
                         <div className={styles.textField}>
@@ -272,7 +272,7 @@ function choiceProvider(type) {
     } else if (type === 'priorMemberChoice') {
         return { name: "priorMember", title: "Were you a member of SMC AGS?", values: ["Yes", "No"] }
     } else if (type === 'permanentMemberChoice') {
-        return { name: "permanentMember", title: "Are you an AGS permanent member?", values: ["Yes, I am a permanent member", "No a permanent member"] }
+        return { name: "permanentMember", title: "Are you an AGS permanent member?", values: ["Yes, I am a permanent member", "No, I am a permanent member"] }
     }
 
     return {}

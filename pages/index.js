@@ -27,7 +27,8 @@ export default function Home() {
       <Layout>
         <div className={styles.center}>
           <div className={styles.container}>
-            <p>Hello New and Continuing AGS members!
+            403 not found
+            {/* <p>Hello New and Continuing AGS members!
             </p>
             <p>Please provide all of the information in the application below so that we will have a complete record for you in the AGS database.  Once you have submitted the application, paid the scholarship dues and club donation, and satisfy all requirements you will earn an AGS transcript notation!</p>
             <p>PLEASE NOTE:  It is your responsibility to learn about all requirements to be eligible to earn an AGS transcript notation.  The scholarship dues is a non-refundable requirement for all members, with the following exceptions:  students in EOPS or Guardian Scholars, and AGS Permanent Members.
@@ -37,7 +38,7 @@ export default function Home() {
             <p>We hope you had a restful and productive break and we Welcome you to the AGS family!</p>
             <div>
               <Button onclick={() => Auth.federatedSignIn({ provider: "Google" })} >Sign in with SMC email</Button>
-            </div>
+            </div> */}
           </div>
         </div>
       </Layout>
