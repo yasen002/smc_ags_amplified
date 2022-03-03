@@ -94,7 +94,6 @@ function Form({ attributes }) {
     const submitHandler = async (e) => {
         e.preventDefault();
         try {
-
             var studentID = smcIDRef.current.value;
             var officialName = session.name;
             var country = countryRef.current.value;
@@ -113,6 +112,13 @@ function Form({ attributes }) {
                 setSignatureWarning(`Your signature must excactly match your official full name: ${session.name}`); return;
             } else {
                 setSignatureWarning(``);
+            }
+
+            if (fileUploadCode !== "d7516f0c-9020-46f6-981b-1e3816e89d2c") {
+                setSignatureWarning("Your file upload confirmation code did not match. You will receive an upload confirmation code after submitting this Google form: <a href='https://forms.gle/u3hNhDmo3fkjhbJf8'>https://forms.gle/u3hNhDmo3fkjhbJf8</a>");
+                return;
+            } else {
+                setSignatureWarning('')
             }
 
             const formData = {
@@ -236,6 +242,7 @@ function Form({ attributes }) {
                     </div>
                     <label htmlFor='signature'>By typing my name <strong>{session.name} </strong> below, I agree and aware of all the Agreement and the requirements abow. I am confirming that I will comply with the AGS club by-laws, SMC Code of Conduct, and agree to all the requirements of being an AGS member and to earn an AGS transcript notation.</label><br />
                     <input ref={signatureRef} className={styles.signature} id='signature' required></input>
+                    {(fileUploadWarning !== "" || warningText !== "") && <p style={{ color: 'red' }} >There is an error in your form, please check your form.</p>}
                     <p style={{ color: 'red' }}>{signatureWarning}</p>
                     <button type='submit' className={styles.submitButton}>Submit</button>
                 </div>
