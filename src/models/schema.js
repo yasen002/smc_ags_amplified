@@ -136,6 +136,55 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "vivo": {
+                    "name": "vivo",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "chapterInvolvement": {
+                    "name": "chapterInvolvement",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "committeeCredit": {
+                    "name": "committeeCredit",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "meetingAttendance": {
+                    "name": "meetingAttendance",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "socials": {
+                    "name": "socials",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "workshops": {
+                    "name": "workshops",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "negative": {
+                    "name": "negative",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -189,5 +238,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "b2f0fb7099b26a002082ee37c856bbf0"
+    "version": "4508e3b94508c926287b67ffd6b11dc0"
 };

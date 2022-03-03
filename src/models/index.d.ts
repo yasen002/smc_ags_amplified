@@ -28,6 +28,13 @@ export declare class Student {
   readonly email: string;
   readonly membership?: string;
   readonly payment?: string;
+  readonly vivo?: string;
+  readonly chapterInvolvement?: string;
+  readonly committeeCredit?: string;
+  readonly meetingAttendance?: string;
+  readonly socials?: string;
+  readonly workshops?: string;
+  readonly negative?: string;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Student, StudentMetaData>);

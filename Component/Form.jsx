@@ -30,6 +30,7 @@ function Form({ attributes }) {
     const [warningText, setWarningText] = useState("")
     const [signatureWarning, setSignatureWarning] = useState("")
     const [fileUploadWarning, setFileUploadWarning] = useState("")
+    const [submitWarning, setSubmitWarning] = useState("")
     const [state, dispatch] = useReducer(reducer, initialState)
     const smcIDRef = useRef(null);
     const nameRef = useRef(null);
@@ -42,7 +43,7 @@ function Form({ attributes }) {
     const signatureRef = useRef(null)
     const preferredNameRef = useRef(null)
     const fileUploadConfirmCodeRef = useRef(null)
-    const transcriptUploadLink = "https://forms.gle/PusZWSvqNGYtuDHc8"
+    const transcriptUploadLink = "https://forms.gle/u3hNhDmo3fkjhbJf8"
     const router = useRouter()
     const checkHandler = (e) => {
         var check = e.target.checked
@@ -93,6 +94,13 @@ function Form({ attributes }) {
 
     const submitHandler = async (e) => {
         e.preventDefault();
+        if (state.meetingAvailability === "" || state.eop_gaurdian === [] || state.gpa === "" || state.units === "" || state.priorMember === "" || state.pmc === "") {
+            setSubmitWarning("Pleaase fully complete the form")
+            return;
+        } else {
+            setSubmitWarning("")
+        }
+
         try {
             var studentID = smcIDRef.current.value;
             var officialName = session.name;
@@ -115,7 +123,7 @@ function Form({ attributes }) {
             }
 
             if (fileUploadCode !== "d7516f0c-9020-46f6-981b-1e3816e89d2c") {
-                setSignatureWarning("Your file upload confirmation code did not match. You will receive an upload confirmation code after submitting this Google form: <a href='https://forms.gle/u3hNhDmo3fkjhbJf8'>https://forms.gle/u3hNhDmo3fkjhbJf8</a>");
+                setSignatureWarning(`Your file upload confirmation code did not match. You will receive an upload confirmation code after submitting this Google form: ${transcriptUploadLink}`);
                 return;
             } else {
                 setSignatureWarning('')
@@ -217,7 +225,7 @@ function Form({ attributes }) {
 
                 <div className={styles.textField}>
 
-                    <label htmlFor="virtualStudyGroup">An SMC club advisor will review your unofficial Transcript and AS student fees to verify your membership eligibility. Please upload proof of your GPA and AS student payment by<a href={transcriptUploadLink} style={{ textDecoration: 'underLine', color: 'blue' }}> submitting this Google form</a> to get your file uplaod confirmation code. <strong>Only SMC Advisors are allowed to access these files that you upload.</strong><br />Your file uplaod confirmation code.</label><br />
+                    <label htmlFor="virtualStudyGroup">An SMC club advisor will review your unofficial Transcript and AS student fees to verify your membership eligibility. Please upload proof of your GPA and AS student payment by<a target="_blank" rel="noreferrer" href={transcriptUploadLink} style={{ textDecoration: 'underLine', color: 'blue' }}> submitting this Google form</a> to get your file uplaod confirmation code. <strong>Only SMC Advisors are allowed to access these files that you upload.</strong><br />Your file uplaod confirmation code.</label><br />
                     <input ref={fileUploadConfirmCodeRef} type='text' id='virtualStudyGroup' name='virtualStudyGroup'></input><br />
                     <p style={{ color: 'red' }}>{fileUploadWarning}</p>
                 </div>
@@ -242,8 +250,9 @@ function Form({ attributes }) {
                     </div>
                     <label htmlFor='signature'>By typing my name <strong>{session.name} </strong> below, I agree and aware of all the Agreement and the requirements abow. I am confirming that I will comply with the AGS club by-laws, SMC Code of Conduct, and agree to all the requirements of being an AGS member and to earn an AGS transcript notation.</label><br />
                     <input ref={signatureRef} className={styles.signature} id='signature' required></input>
-                    {(fileUploadWarning !== "" || warningText !== "") && <p style={{ color: 'red' }} >There is an error in your form, please check your form.</p>}
+
                     <p style={{ color: 'red' }}>{signatureWarning}</p>
+                    <p style={{ color: 'red' }}>{submitWarning}</p>
                     <button type='submit' className={styles.submitButton}>Submit</button>
                 </div>
             </form>

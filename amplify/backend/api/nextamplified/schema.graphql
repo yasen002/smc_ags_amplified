@@ -1,23 +1,29 @@
-type Student @model 
-
-  @auth(rules: [{allow: public}]) {
-    id: ID!
-    officialName: String
-    preferredName: String
-    studentID: String
-    country: String
-    city: String
-    zipCode: String
-    phone: String
-    major: String
-    interest: String
-    peerMentor: String
-    meetingTime: String
-    EOP_Scholar: String
-    units: String
-    gpa: String
-    documentUpload: String
-    email: String! @primaryKey
-    membership: String
-    payment: String
+type Student @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  officialName: String
+  preferredName: String
+  studentID: String
+  country: String
+  city: String
+  zipCode: String
+  phone: String
+  major: String
+  interest: String
+  peerMentor: String
+  meetingTime: String
+  EOP_Scholar: String
+  units: String
+  gpa: String
+  documentUpload: String
+  email: String! @primaryKey
+  membership: String
+  payment: String
+  vivo: String
+  chapterInvolvement: String
+  committeeCredit: String
+  meetingAttendance: String
+  socials: String
+  workshops: String
+  negative: String
 }
+ 

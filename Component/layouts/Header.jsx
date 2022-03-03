@@ -1,13 +1,8 @@
 import styles from "../../styles/header.module.scss"
-import React, { useEffect } from 'react'
+import React, { } from 'react'
 import { Auth } from 'aws-amplify';
 
 export default function Header({ info = false }) {
-    useEffect(() => {
-        if (info) {
-            setEmail(info.email)
-        }
-    }, [])
 
     return (
         <header>
@@ -30,7 +25,7 @@ export default function Header({ info = false }) {
                 )}
 
 
-                {info.email && (
+                {info?.email && (
                     <>
                         <span className={styles.signedInText}>
                             <small>Signed in as</small>

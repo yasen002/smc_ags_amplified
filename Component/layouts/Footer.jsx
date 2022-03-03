@@ -5,7 +5,7 @@ export default function Footer() {
     return (
         <footer className={styles.footer}>
             <hr />
-            <p> Copyright © 2022 <a href="http://www.agssmc.org/">SMC AGS</a> | <a href="https://github.com/yasen002">Authored by Yasen A</a></p>
+            <p> Copyright © 2022 <a target="_blank" rel="noreferrer" href="http://www.agssmc.org/">SMC AGS</a> | <a target="_blank" rel="noreferrer" href="https://github.com/yasen002">Authored by Yasen A</a></p>
         </footer>
     )
 }
