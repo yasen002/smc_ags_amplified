@@ -1,33 +1,18 @@
 import React, { useEffect, useState } from "react";
-import styles from "../styles/Home.module.scss";
-import { DataStore } from "@aws-amplify/datastore";
-import { Student } from "../src/models";
-import Form from "../Component/Form";
-// import Layout from '../Component/layouts/layout'
+import styles from "../styles/ags/signup/welcome.module.scss";
 import { Auth } from "aws-amplify";
 import Layout from "../Component/layouts/Layout";
 import Button from "../Component/Button";
-import { useRouter } from "next/router";
 
-export default function Home() {
-  const [attributes, setAttributes] = useState(null);
-  const router = useRouter();
-
-  useEffect(() => {
-    setAuth();
-    async function setAuth() {
-      try {
-        const user = await Auth.currentAuthenticatedUser();
-        const { attributes } = user;
-        setAttributes(attributes);
-      } catch (error) {
-        setAttributes(false);
-        router.push("/welcome");
-        console.log(error);
-      }
-    }
-  }, []);
-
+export default function Welcome({ signOut, user }) {
+  // useEffect(() => {
+  //     fetchStudents()
+  //     async function fetchStudents() {
+  //         const studentData = await DataStore.query(Student);
+  //         setStudents(studentData)
+  //         console.log(studentData);
+  //     }
+  // }, [])
   return (
     <>
       <Layout>
@@ -72,6 +57,8 @@ export default function Home() {
               to the AGS family!
             </p>
             <div>
+              {/* <h1>Hello {user.username}</h1>
+                            <button onClick={signOut}>Sign out</button> */}
               <Button
                 onclick={() => Auth.federatedSignIn({ provider: "Google" })}
               >
@@ -84,3 +71,14 @@ export default function Home() {
     </>
   );
 }
+
+// import { useAuthenticator } from '@aws-amplify/ui-react';
+
+// const App = () => {
+//   const { route } = useAuthenticator(context => [context.route]);
+
+//   // Use the value of route to decide which page to render
+//   return route === 'authenticated' ? <Home /> : <Authenticator />;
+// };
+
+// await Auth.signOut({ global: true });

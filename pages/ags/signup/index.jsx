@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from 'react'
-// import styles from '../../../styles/ags/signup/welcome.module.scss'
-// import { DataStore } from '@aws-amplify/datastore';
-// import { Student } from '../../../src/models';
 import { Auth } from 'aws-amplify';
 import Layout from '../../../Component/layouts/Layout';
-// import Button from '../../../Component/Button';
 import { useRouter } from 'next/router';
 import Form from '../../../Component/Form';
 
@@ -19,14 +15,21 @@ export default function Page({ signOut, user }) {
             try {
                 const user = await Auth.currentAuthenticatedUser();
                 const { attributes } = user;
-                setAttributes(attributes)
+                const { email } = attributes;
+                if (!isStudentMail(email)) {
+                    router.replace("/unauthorizedemail");
+                    return;
+                } else {
+                    setAttributes(attributes)
+                }
             } catch (error) {
                 setAttributes(false)
                 router.push("/ags/signup/welcome")
-                console.log(error)
+                console.log("error from index useeffect: ", error)
             }
         }
     }, [])
+
     return (
         <Layout>
             {attributes !== null && <Form attributes={attributes} />}
@@ -36,3 +39,6 @@ export default function Page({ signOut, user }) {
     )
 }
 
+function isStudentMail(email) {
+    return email.includes("@student.smc.edu");
+}
