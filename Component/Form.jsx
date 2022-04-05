@@ -30,6 +30,7 @@ function Form({ attributes }) {
     const [warningText, setWarningText] = useState("")
     const [signatureWarning, setSignatureWarning] = useState("")
     const [fileUploadWarning, setFileUploadWarning] = useState("")
+    const [submitWarning, setSubmitWarning] = useState("")
     const [state, dispatch] = useReducer(reducer, initialState)
     const smcIDRef = useRef(null);
     const nameRef = useRef(null);
@@ -42,7 +43,7 @@ function Form({ attributes }) {
     const signatureRef = useRef(null)
     const preferredNameRef = useRef(null)
     const fileUploadConfirmCodeRef = useRef(null)
-    const transcriptUploadLink = "https://forms.gle/PusZWSvqNGYtuDHc8"
+    const transcriptUploadLink = "https://forms.gle/u3hNhDmo3fkjhbJf8"
     const router = useRouter()
     const checkHandler = (e) => {
         var check = e.target.checked
@@ -93,8 +94,14 @@ function Form({ attributes }) {
 
     const submitHandler = async (e) => {
         e.preventDefault();
-        try {
+        if (state.meetingAvailability === "" || state.eop_gaurdian === [] || state.gpa === "" || state.units === "" || state.priorMember === "" || state.pmc === "") {
+            setSubmitWarning("Pleaase fully complete the form")
+            return;
+        } else {
+            setSubmitWarning("")
+        }
 
+        try {
             var studentID = smcIDRef.current.value;
             var officialName = session.name;
             var country = countryRef.current.value;
@@ -113,6 +120,13 @@ function Form({ attributes }) {
                 setSignatureWarning(`Your signature must excactly match your official full name: ${session.name}`); return;
             } else {
                 setSignatureWarning(``);
+            }
+
+            if (fileUploadCode !== "d7516f0c-9020-46f6-981b-1e3816e89d2c") {
+                setSignatureWarning(`Your file upload confirmation code did not match. You will receive an upload confirmation code after submitting this Google form: ${transcriptUploadLink}`);
+                return;
+            } else {
+                setSignatureWarning('')
             }
 
             const formData = {
@@ -166,7 +180,7 @@ function Form({ attributes }) {
                     <p>For the AGS members record, your current Address (input "International" if you are currently living outside of the U.S.) *</p>
                     <div className={styles.addressFields}>
                         <div className={styles.textField}>
-                            <label htmlFor="country">country *</label><br />
+                            <label htmlFor="country">Country *</label><br />
                             <input ref={countryRef} type='text' id='country' name='country' required></input><br />
                         </div>
                         <div className={styles.textField}>
@@ -211,7 +225,7 @@ function Form({ attributes }) {
 
                 <div className={styles.textField}>
 
-                    <label htmlFor="virtualStudyGroup">An SMC club advisor will review your unofficial Transcript and AS student fees to verify your membership eligibility. Please upload proof of your GPA and AS student payment by<a href={transcriptUploadLink} style={{ textDecoration: 'underLine', color: 'blue' }}> submitting this Google form</a> to get your file uplaod confirmation code. <strong>Only SMC Advisors are allowed to acceess these files that you upload.</strong><br />Your file uplaod confirmation code.</label><br />
+                    <label htmlFor="virtualStudyGroup">An SMC club advisor will review your unofficial Transcript and AS student fees to verify your membership eligibility. Please upload proof of your GPA and AS student payment by<a target="_blank" rel="noreferrer" href={transcriptUploadLink} style={{ textDecoration: 'underLine', color: 'blue' }}> submitting this Google form</a> to get your file uplaod confirmation code. <strong>Only SMC Advisors are allowed to access these files that you upload.</strong><br />Your file uplaod confirmation code.</label><br />
                     <input ref={fileUploadConfirmCodeRef} type='text' id='virtualStudyGroup' name='virtualStudyGroup'></input><br />
                     <p style={{ color: 'red' }}>{fileUploadWarning}</p>
                 </div>
@@ -236,7 +250,9 @@ function Form({ attributes }) {
                     </div>
                     <label htmlFor='signature'>By typing my name <strong>{session.name} </strong> below, I agree and aware of all the Agreement and the requirements abow. I am confirming that I will comply with the AGS club by-laws, SMC Code of Conduct, and agree to all the requirements of being an AGS member and to earn an AGS transcript notation.</label><br />
                     <input ref={signatureRef} className={styles.signature} id='signature' required></input>
+
                     <p style={{ color: 'red' }}>{signatureWarning}</p>
+                    <p style={{ color: 'red' }}>{submitWarning}</p>
                     <button type='submit' className={styles.submitButton}>Submit</button>
                 </div>
             </form>
@@ -272,7 +288,7 @@ function choiceProvider(type) {
     } else if (type === 'priorMemberChoice') {
         return { name: "priorMember", title: "Were you a member of SMC AGS?", values: ["Yes", "No"] }
     } else if (type === 'permanentMemberChoice') {
-        return { name: "permanentMember", title: "Are you an AGS permanent member?", values: ["Yes, I am a permanent member", "No a permanent member"] }
+        return { name: "permanentMember", title: "Are you an AGS permanent member?", values: ["Yes, I am a permanent member", "No, I am a permanent member"] }
     }
 
     return {}
