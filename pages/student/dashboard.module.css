@@ -1,0 +1,53 @@
+.dashboard {
+  min-height: 95vh;
+}
+
+.navDisc,
+.navStudentInfo {
+  text-align: center;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  letter-spacing: 1px;
+  font-size: 2rem;
+  font-weight: 300;
+}
+
+.navStudentInfo {
+  font-size: 1.5rem;
+  color: gray;
+}
+
+.progressWrapper {
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.progressContainer {
+  padding: 10px;
+  display: grid;
+  gap: 5px;
+  margin: 0 auto;
+  /* justify-content: center; */
+}
+
+@media (min-width: 576px) {
+  .progressContainer {
+    grid-template-columns: 1fr 1fr 1fr;
+    max-width: auto;
+  }
+}
+/* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
+@media (min-width: 768px) {
+  .progressContainer {
+    /* margin-top: 20vh; */
+  }
+}
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+}
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .progressContainer {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}

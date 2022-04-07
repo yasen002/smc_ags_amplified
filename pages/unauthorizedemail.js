@@ -3,7 +3,7 @@ import Layout from "../Component/layouts/Layout";
 import Button from "../Component/Button";
 import { Auth } from "aws-amplify";
 import { useRouter } from "next/router";
-
+import Cookies from "js-cookie";
 export default function Unauthorizedemail({ signOut, user }) {
   const router = useRouter();
   return (

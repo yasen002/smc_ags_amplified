@@ -5,8 +5,6 @@ import { Auth } from 'aws-amplify';
 import { useRouter } from 'next/router';
 
 export default function Unauthorizedemail({ signOut, user }) {
-
-
     const router = useRouter()
     return (
         <>
