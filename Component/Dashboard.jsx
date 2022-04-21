@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
-import Circle from "../../Component/Circle";
-import $ from "./dashboard.module.css";
+import Circle from "./Circle";
+import $ from "./Dashboard.module.css";
 import Cookies from "js-cookie";
 
-export default function Dashboard() {
-  const [studentData, setStudentData] = useState(null);
+export default function Dashboard({ data }) {
   const [progress, setProgress] = useState(null);
+
   useEffect(() => {
-    const data = JSON.parse(Cookies.get("student"))[0];
-    setStudentData(data);
     const negative = negativeProgress(data.negative);
     const vivo = vivoProgress(data.vivo);
     const committee = committeeProgress(data.committeeCredit);
@@ -16,19 +14,20 @@ export default function Dashboard() {
     const workshops = workshopsProgress(data.workshops);
     setProgress({ negative, vivo, committee, socials, workshops });
     return () => {
-      Cookies.remove("student");
+      setProgress(null);
     };
   }, []);
 
   return (
     <>
-      {progress !== null && (
+      {!progress && <h1>Loading ... </h1>}
+      {progress && (
         <div className={$.dashboard}>
           <div className={$.nav}>
             <p className={$.navDisc}>AGS Member Summary</p>
             <div className={$.navStudentInfo}>
-              <p>SMC ID: {studentData.studentID}</p>
-              <p>Name: {studentData.officialName}</p>
+              <p>SMC ID: {data.studentID}</p>
+              <p>Name: {data.officialName}</p>
             </div>
           </div>
           <div className={$.progressWrapper}>
@@ -76,8 +75,7 @@ function vivoProgress(data) {
 }
 
 function committeeProgress(data) {
-  const isCommitteeMember = data.toLowerCase().includes("committee");
-  console.log(isCommitteeMember, "...");
+  const isCommitteeMember = data?.toLowerCase().includes("committee");
 
   return {
     percent: isCommitteeMember === true ? 100 : 0,

@@ -1,74 +1,80 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styles from "../styles/Home.module.scss";
 import { DataStore } from "@aws-amplify/datastore";
 import { Student } from "../src/models";
-import Cookies from "js-cookie";
-import { Auth } from "aws-amplify";
+import { Auth, Hub } from "aws-amplify";
 import Layout from "../Component/layouts/Layout";
-import { useRouter } from "next/router";
+import Dashboard from "../Component/Dashboard";
+import NotFound from "../Component/NotFound";
 
 export default function Home() {
-  const [attributes, setAttributes] = useState(null);
-  const [student, setStudent] = useState(null);
-
-  const router = useRouter();
-
+  const [user, setUser] = useState(null);
+  const [studentData, setStudentData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const mountedRef = useRef(true);
   useEffect(() => {
-    setAuth();
-    async function setAuth() {
-      try {
-        const user = await Auth.currentAuthenticatedUser();
-        const { attributes } = user;
-        const { email } = attributes;
+    if (!mountedRef.current) return null;
 
-        const studentData = await DataStore.query(Student, (student) =>
-          student.email("eq", email)
-        );
-        var inFifteenMinutes = new Date(new Date().getTime() + 15 * 60 * 1000);
-        Cookies.set("student", JSON.stringify(studentData), {
-          expires: inFifteenMinutes,
-        });
-
-        if (studentData.length === 0) {
-          router.push("/ags/signup");
-        } else {
-          router.push("student/dashboard");
-        }
-
-        setStudent(studentData);
-        //---------------------------------------
-        ////this is not checking student email
-        // if (!isStudentMail(email)) {
-        //   router.replace("/unauthorizedemail");
-        //   return;
-        // } else {
-        // }
-        //---------------------------------------
-
-        setAttributes(attributes);
-      } catch (error) {
-        setAttributes(false);
-        if (error === "The user is not authenticated") {
-          Auth.federatedSignIn({ provider: "Google" });
-        } else {
-          router.push("/welcome");
-        }
-        console.log("error from index useeffect: ", error);
+    Hub.listen("auth", ({ payload: { event, data } }) => {
+      switch (event) {
+        case "signIn":
+        case "cognitoHostedUI":
+          setLoading(true);
+          getUser().then((userData) => setUser(userData));
+          break;
+        case "signOut":
+          setUser(null);
+          setStudentData(null);
+          setLoading(false);
+          break;
+        case "signIn_failure":
+        case "cognitoHostedUI_failure":
+          console.log("Sign in failure", data);
+          break;
       }
-    }
+    });
+    setLoading(true);
+    getUser().then((userData) => setUser(userData));
+    return () => {
+      mountedRef.current = false;
+    };
   }, []);
 
+  useEffect(() => {
+    if (!mountedRef.current) return null;
+    if (user) {
+      getStudent(user.attributes.email).then((student) => {
+        if (student.length > 0) {
+          setStudentData(student);
+        } else {
+          setStudentData(null);
+        }
+        setLoading(false);
+      });
+    }
+  }, [user, studentData]);
+
+  function getUser() {
+    return Auth.currentAuthenticatedUser()
+      .then((userData) => userData)
+      .catch(() => console.log("Not signed in"));
+  }
+
+  async function getStudent(email) {
+    const student = await DataStore.query(Student, (c) => c.email("eq", email));
+    return student;
+  }
   return (
     <>
-      <Layout>
+      <Layout info={user ? { email: user.attributes.email } : false}>
         <div className={styles.center}>
-          <div className={styles.container}>Loading...</div>
+          <div className={styles.container}>
+            {loading && user && <h1>Loading ... </h1>}
+            {!loading && studentData && <Dashboard data={studentData[0]} />}
+            {!loading && !studentData && <NotFound />}
+          </div>
         </div>
       </Layout>
     </>
   );
-}
-
-function isStudentMail(email) {
-  return email.includes("@student.smc.edu");
 }

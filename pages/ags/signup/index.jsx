@@ -32,7 +32,8 @@ export default function Page({ signOut, user }) {
 
   return (
     <Layout info={attributes}>
-      {attributes !== null && <Form attributes={attributes} />}
+      {/* {attributes !== null && <Form attributes={attributes} />} */}
+      <p>AGS Sign up has ended</p>
     </Layout>
   );
 }
