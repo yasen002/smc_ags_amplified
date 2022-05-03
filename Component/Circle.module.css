@@ -1,5 +1,8 @@
 .container {
   height: auto;
+  width: 80vw;
+  max-width: 350px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -10,35 +13,32 @@
 }
 
 .containerDisc {
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   font-size: 20px;
 }
 .progress {
   position: relative;
 }
 .progressDesc {
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   font-size: 12px;
   color: gray;
 }
 
 .outer {
   height: 160px;
+  width: 50vw;
   width: 160px;
   padding: 20px;
   border-radius: 50%;
-  box-shadow: 6px 6px 10px -1px rgba(0, 0, 0, 0.15),
-    -6px -6px 10px -1px rgba(255, 255, 255, 0.7);
+  box-shadow: 6px 6px 10px -1px rgba(0, 0, 0, 0.15), -6px -6px 10px -1px rgba(255, 255, 255, 0.7);
 }
 
 .inner {
   height: 120px;
   width: 120px;
   border-radius: 50%;
-  box-shadow: inset 4px 4px 6px -1px rgba(0, 0, 0, 0.15),
-    inset -4px -4px 6px -1px rgba(255, 255, 255, 0.7);
+  box-shadow: inset 4px 4px 6px -1px rgba(0, 0, 0, 0.15), inset -4px -4px 6px -1px rgba(255, 255, 255, 0.7);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -66,5 +66,11 @@
 @keyframes circleAnimation {
   0% {
     stroke-dashoffset: 435;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    width: 300px;
   }
 }
