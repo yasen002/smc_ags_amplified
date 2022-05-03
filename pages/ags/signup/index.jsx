@@ -33,6 +33,7 @@ export default function Page({ signOut, user }) {
   return (
     <Layout info={attributes}>
       {/* {attributes !== null && <Form attributes={attributes} />} */}
+      <Form attributes={{ email: "yasen362@gmail.com", given_name: "yase", family_name: "sen" }} />
       <p>AGS Sign up has ended</p>
     </Layout>
   );

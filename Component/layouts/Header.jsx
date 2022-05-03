@@ -1,6 +1,7 @@
 import $ from "../../styles/header.module.scss";
 import React from "react";
 import { Auth } from "aws-amplify";
+import Cookies from "js-cookie";
 
 export default function Header({ info = false }) {
   return (
@@ -28,6 +29,7 @@ export default function Header({ info = false }) {
             <span
               className={$.button}
               onClick={(e) => {
+                Cookies.remove("student");
                 Auth.signOut();
               }}
             >
