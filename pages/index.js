@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
-import styles from "../styles/Home.module.scss";
+import Link from "next/link";
+import Cookies from "js-cookie";
 import { DataStore } from "@aws-amplify/datastore";
 import { Student } from "../src/models";
 import { Auth, Hub } from "aws-amplify";
 import Layout from "../Component/layouts/Layout";
 import Dashboard from "../Component/Dashboard";
-import NotFound from "../Component/NotFound";
 import Loading from "../Component/Loading";
 
 function resolveAfter3Seconds() {
@@ -30,6 +30,13 @@ export default function Home() {
   const [studentData, setStudentData] = useState(null);
   const [loading, setLoading] = useState(true);
   const mountedRef = useRef(true);
+
+  useEffect(() => {
+    var inTwoHours = new Date(new Date().getTime() + 120 * 60 * 1000);
+    Cookies.set("student", JSON.stringify(user?.attributes), {
+      expires: inTwoHours,
+    });
+  }, [user]);
 
   useEffect(() => {
     // install Amplify user hub
@@ -66,8 +73,9 @@ export default function Home() {
 
     return () => {
       mountedRef.current = false;
+      Hub.remove("auth");
     };
-  }, [loading]);
+  }, [loading, studentData, user]);
 
   return (
     <>
@@ -75,7 +83,16 @@ export default function Home() {
         {loading && user && <Loading />}
         {!user && !loading && <h1>Please Sign in </h1>}
         {!loading && studentData && <Dashboard data={studentData} />}
-        {!loading && !studentData && <NotFound />}
+        {!loading && !!!studentData && (
+          <div>
+            <h1>
+              Your Data was not found. Please
+              <Link href="/signup">
+                <a>click here to sign up</a>
+              </Link>
+            </h1>
+          </div>
+        )}
       </Layout>
     </>
   );
