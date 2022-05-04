@@ -180,7 +180,7 @@
               "Action": [
                 "ses:SendEmail"
               ],
-              "Resource": "arn:aws:ses:us-east-1:971617184065:identity/yasen4ags@gmail.com"
+              "Resource": "arn:aws:ses:us-east-1:971617184065:identity/*"
             }
           ]
         }

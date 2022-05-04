@@ -40,6 +40,12 @@ export default function Home() {
   }, [user]);
 
   useEffect(() => {
+    //manual window refresh to display the studentData
+    //Since amplify hub doesn't revoke dom update
+    setUser(user);
+  }, [studentData]);
+
+  useEffect(() => {
     // install Amplify user hub
     if (!mountedRef.current) return null;
     Hub.listen("auth", ({ payload: { event, data } }) => {
@@ -76,15 +82,28 @@ export default function Home() {
       mountedRef.current = false;
       Hub.remove("auth");
     };
-  }, [loading, studentData]);
+  }, []);
 
   return (
     <>
       <Layout info={user ? { email: user.attributes.email } : false}>
-        {loading && user && <Loading />}
+        {/* {loading && user && <Loading />}
         {!user && !!loading && <h1>Please Sign in </h1>}
         {!loading && studentData && <Dashboard data={studentData} />}
         {!loading && !!!studentData && (
+          <div>
+            <h1>
+              Your Data was not found. Please
+              <Link href="/signup">
+                <a>click here to sign up</a>
+              </Link>
+            </h1>
+          </div>
+        )} */}
+        {!!user && loading && <Loading />}
+        {!!!user && <h1>Please Sign in </h1>}
+        {!!user && !loading && !!studentData && <Dashboard data={studentData} />}
+        {!!user && !loading && !!!studentData && (
           <div>
             <h1>
               Your Data was not found. Please

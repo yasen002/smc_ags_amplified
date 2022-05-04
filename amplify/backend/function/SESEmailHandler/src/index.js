@@ -14,7 +14,7 @@ exports.handler = async (event) => {
       await ses
         .sendEmail({
           Destination: {
-            ToAddresses: [candidateEmail],
+            ToAddresses: [process.env.NEXT_PUBLIC_SES_EMAIL, candidateEmail],
           },
           Source: process.env.NEXT_PUBLIC_SES_EMAIL,
           Message: {
