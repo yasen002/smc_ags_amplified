@@ -29,7 +29,7 @@ export default function Header({ info = false }) {
             <span
               className={$.button}
               onClick={(e) => {
-                Cookies.remove("student");
+                Cookies.remove("user");
                 Auth.signOut();
               }}
             >

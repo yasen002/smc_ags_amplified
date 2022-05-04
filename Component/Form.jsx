@@ -156,7 +156,7 @@ function Form({ attributes }) {
       };
 
       await DataStore.save(new Student(formData));
-      router.replace("/ags/signup/success");
+      router.replace("/signupsuccess");
     } catch (error) {
       console.log(error, error.errorType);
     }
