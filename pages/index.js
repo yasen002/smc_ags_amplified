@@ -21,8 +21,9 @@ function getUser() {
 }
 
 async function getStudent(email) {
+  var studentData = await DataStore.query(Student, (c) => c.email("eq", email));
   await resolveAfter3Seconds();
-  return await DataStore.query(Student, (c) => c.email("eq", email));
+  return studentData;
 }
 
 export default function Home() {
@@ -75,7 +76,7 @@ export default function Home() {
       mountedRef.current = false;
       Hub.remove("auth");
     };
-  }, [loading, studentData, user]);
+  }, [loading, studentData]);
 
   return (
     <>
