@@ -51,7 +51,8 @@ export default function Home() {
     //Since amplify hub doesn't revoke dom update
     console.log("dom force update");
     setUser(user);
-  }, [studentData, loading]);
+    setStudentData((data) => data);
+  }, [loading]);
 
   useEffect(() => {
     // install Amplify user hub
