@@ -82,7 +82,7 @@ export default function Home() {
     <>
       <Layout info={user ? { email: user.attributes.email } : false}>
         {loading && user && <Loading />}
-        {!user && !loading && <h1>Please Sign in </h1>}
+        {!user && !!loading && <h1>Please Sign in </h1>}
         {!loading && studentData && <Dashboard data={studentData} />}
         {!loading && !!!studentData && (
           <div>

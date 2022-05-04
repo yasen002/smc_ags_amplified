@@ -1,0 +1,9 @@
+{
+  "lambdaLayers": [],
+  "environmentVariableList": [
+    {
+      "cloudFormationParameterName": "nextPublicSesEmail",
+      "environmentVariableName": "NEXT_PUBLIC_SES_EMAIL"
+    }
+  ]
+}

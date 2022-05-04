@@ -14,6 +14,13 @@
     "categories": {
       "auth": {
         "nextamplified": {}
+      },
+      "function": {
+        "SESEmailHandler": {
+          "nextPublicSesEmail": "yasen4ags@gmail.com",
+          "deploymentBucketName": "amplify-nextamplified-dev-132935-deployment",
+          "s3Key": "amplify-builds/SESEmailHandler-2b646f2b556f65717765-build.zip"
+        }
       }
     }
   }
