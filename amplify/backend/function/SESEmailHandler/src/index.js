@@ -14,13 +14,13 @@ exports.handler = async (event) => {
       await ses
         .sendEmail({
           Destination: {
-            ToAddresses: candidateEmail,
+            ToAddresses: [candidateEmail],
           },
           Source: process.env.NEXT_PUBLIC_SES_EMAIL,
           Message: {
-            Subject: { Data: "Candidate Submission" },
+            Subject: { Data: "SMC AGS Signup Success" },
             Body: {
-              Text: { Data: `My name is ${candidateName}. You can reach me at ${candidateEmail}` },
+              Text: { Data: `Dear SMC AGS member, we have received your application under the name: ${candidateName}, and Email: ${candidateEmail}` },
             },
           },
         })

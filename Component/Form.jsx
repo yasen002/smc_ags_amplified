@@ -119,7 +119,7 @@ function Form({ attributes }) {
       var officialName = session.name.replace(/ /g, "").toUpperCase();
       var signedName = signature.replace(/ /g, "").toUpperCase();
       if (officialName !== signedName) {
-        setSignatureWarning(`Your signature must excactly match your official full name: ${session.name}`);
+        setSignatureWarning(`Your signature must exactly match your official full name: ${session.name}`);
         return;
       } else {
         setSignatureWarning(``);

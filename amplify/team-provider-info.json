@@ -19,7 +19,7 @@
         "SESEmailHandler": {
           "nextPublicSesEmail": "yasen4ags@gmail.com",
           "deploymentBucketName": "amplify-nextamplified-dev-132935-deployment",
-          "s3Key": "amplify-builds/SESEmailHandler-2b646f2b556f65717765-build.zip"
+          "s3Key": "amplify-builds/SESEmailHandler-5655684d774a33783075-build.zip"
         }
       }
     }

@@ -44,8 +44,12 @@ export default function Dashboard({ data }) {
   );
 }
 
+function parseIntData(data) {
+  return !!!isNaN(parseInt(data)) ? Number(data) : 0;
+}
+
 function vivoProgress(data) {
-  data = Number(data);
+  data = parseIntData(data);
   const totalVivo = 5.0;
   const vivoPercent = data / totalVivo;
   vivoPercent *= 100;
@@ -72,7 +76,7 @@ function paymentProgress(data) {
 }
 
 function socialsProgress(data) {
-  data = Number(data);
+  data = parseIntData(data);
   const total = 2.0;
   const percent = data / total;
   percent *= 100;
@@ -81,7 +85,7 @@ function socialsProgress(data) {
 }
 
 function workshopsProgress(data) {
-  data = Number(data);
+  data = parseIntData(data);
   const total = 2.0;
   const percent = data / total;
   percent *= 100;
@@ -90,7 +94,7 @@ function workshopsProgress(data) {
 }
 
 function negativeProgress(data) {
-  data = Number(data);
+  data = parseIntData(data);
   const total = 3.0;
   const percent = data / total;
   percent *= 100;
