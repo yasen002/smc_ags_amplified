@@ -33,6 +33,13 @@ export default function Home() {
   const mountedRef = useRef(true);
 
   useEffect(() => {
+    console.log("user: ", user);
+    console.log("studentData: ", studentData);
+    console.log("Loading: ", loading);
+    console.log("------------------------------------------");
+  });
+
+  useEffect(() => {
     var inTwoHours = new Date(new Date().getTime() + 120 * 60 * 1000);
     Cookies.set("student", JSON.stringify(user?.attributes), {
       expires: inTwoHours,
@@ -42,6 +49,7 @@ export default function Home() {
   useEffect(() => {
     //manual window refresh to display the studentData
     //Since amplify hub doesn't revoke dom update
+    console.log("dom force update");
     setUser(user);
   }, [studentData]);
 
