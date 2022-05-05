@@ -47,6 +47,9 @@ export declare class Student {
 
 export declare class Chapter {
   readonly id: string;
+  readonly status?: string | null;
+  readonly semester?: string | null;
+  readonly year?: string | null;
   readonly signupForm?: string | null;
   readonly officers?: (string | null)[] | null;
   readonly createdAt?: string | null;

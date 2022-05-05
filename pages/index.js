@@ -62,27 +62,14 @@ export default function Home() {
     };
   }, []);
 
-  //amplify hub for datastore
   useEffect(() => {
-    // Start the DataStore, this kicks-off the sync process.
-    DataStore.start();
-
-    // install Amplify user hub for datastore
-    const datastoreListener = Hub.listen("datastore", async (capsule) => {
-      const {
-        payload: { event, data },
-      } = capsule;
-
-      if (event === "ready") {
-        setDataReady(true);
+    if (dataReady === false) {
+      let cookieName = "datastore";
+      if (Cookies.get(cookieName) !== "null" && Cookies.get(cookieName) !== "undefined") {
+        setDataReady(() => (!!Cookies.get(cookieName) ? JSON.parse(Cookies.get(cookieName)) : false));
       }
-    });
-
-    return () => {
-      //removes listener once the sync is done
-      datastoreListener();
-    };
-  }, []);
+    }
+  });
 
   useEffect(() => {
     if (!!!user?.attributes.email || !dataReady) return;

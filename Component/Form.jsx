@@ -3,9 +3,12 @@ import styles from "../styles/Form.module.scss";
 import RadioSelect from "../Component/RadioSelect";
 import Checkbox from "../Component/Checkbox";
 import Link from "next/link";
+import Cookies from "js-cookie";
+
 import { useRouter } from "next/router";
 import { DataStore } from "@aws-amplify/datastore";
-import { Student } from "../src/models";
+import { Student, Chapter } from "../src/models";
+import Layout from "./layouts/Layout";
 const initialState = {
   units: "",
   pmc: "",
@@ -32,6 +35,9 @@ function Form({ attributes }) {
   const [fileUploadWarning, setFileUploadWarning] = useState("");
   const [submitWarning, setSubmitWarning] = useState("");
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [formOpen, setFormOpen] = useState(false);
+  const [dataReady, setDataReady] = useState(false);
+
   const smcIDRef = useRef(null);
   const nameRef = useRef(null);
   const countryRef = useRef(null);
@@ -55,6 +61,35 @@ function Form({ attributes }) {
       dispatch({ type: "removeCheckBox", payload: { item: name, value: value } });
     }
   };
+
+  useEffect(() => {
+    if (dataReady === false) {
+      let cookieName = "datastore";
+      if (Cookies.get(cookieName) !== "null" && Cookies.get(cookieName) !== "undefined") {
+        setDataReady(() => (!!Cookies.get(cookieName) ? JSON.parse(Cookies.get(cookieName)) : false));
+      }
+    }
+    console.log("formopen: ", formOpen);
+  });
+
+  useEffect(() => {
+    const fetchChapterData = async () => {
+      try {
+        let chapterData = await DataStore.query(Chapter, (c) => c.status("eq", "active"));
+        if (chapterData.length > 0) {
+          setFormOpen(JSON.parse(chapterData[0].signupForm));
+        } else {
+          setFormOpen(false);
+        }
+      } catch (error) {
+        console.log("Error from Form.jsx: \n \n", error);
+      }
+    };
+
+    if (dataReady) {
+      fetchChapterData().catch(console.error);
+    }
+  }, [dataReady]);
 
   const selectHandler = (e) => {
     var value = e.target.value;
@@ -160,174 +195,179 @@ function Form({ attributes }) {
     }
   };
   return (
-    <div className={styles.container}>
-      <h1>2022 Spring AGS Application</h1>
-      <form onSubmit={submitHandler}>
-        <div className={styles.textField}>
-          <label htmlFor="fname">Your official name</label>
-          <br />
-          <input ref={nameRef} type="text" id="fname" name="fname" value={session.name} disabled></input>
-          <br />
-        </div>
-        <div className={styles.textField}>
-          <label htmlFor="fname">Your preferred name</label>
-          <br />
-          <input ref={preferredNameRef} type="text" id="fname" name="fname"></input>
-          <br />
-        </div>
-
-        <div className={styles.textField}>
-          <label htmlFor="smcID">SMC Student ID number. *</label>
-          <br />
-          <input ref={smcIDRef} type="number" id="smcID" name="smcID" required></input>
-          <br />
-        </div>
-        <div className={styles.address}>
-          <p>For the AGS members record, your current Address (input "International" if you are currently living outside of the U.S.) *</p>
-          <div className={styles.addressFields}>
+    <>
+      {formOpen === false && <h1>member signup form is currently closed.</h1>}
+      {formOpen === true && (
+        <div className={styles.container}>
+          <h1>2022 Spring AGS Application</h1>
+          <form onSubmit={submitHandler}>
             <div className={styles.textField}>
-              <label htmlFor="country">Country *</label>
+              <label htmlFor="fname">Your official name</label>
               <br />
-              <input ref={countryRef} type="text" id="country" name="country" required></input>
+              <input ref={nameRef} type="text" id="fname" name="fname" value={session.name} disabled></input>
               <br />
             </div>
             <div className={styles.textField}>
-              <label htmlFor="city">City *</label>
+              <label htmlFor="fname">Your preferred name</label>
               <br />
-              <input ref={cityRef} type="text" id="city" name="city" required></input>
+              <input ref={preferredNameRef} type="text" id="fname" name="fname"></input>
+              <br />
+            </div>
+
+            <div className={styles.textField}>
+              <label htmlFor="smcID">SMC Student ID number. *</label>
+              <br />
+              <input ref={smcIDRef} type="number" id="smcID" name="smcID" required></input>
+              <br />
+            </div>
+            <div className={styles.address}>
+              <p>For the AGS members record, your current Address (input "International" if you are currently living outside of the U.S.) *</p>
+              <div className={styles.addressFields}>
+                <div className={styles.textField}>
+                  <label htmlFor="country">Country *</label>
+                  <br />
+                  <input ref={countryRef} type="text" id="country" name="country" required></input>
+                  <br />
+                </div>
+                <div className={styles.textField}>
+                  <label htmlFor="city">City *</label>
+                  <br />
+                  <input ref={cityRef} type="text" id="city" name="city" required></input>
+                  <br />
+                </div>
+                <div className={styles.textField}>
+                  <label htmlFor="zipCode">Zipcode *</label>
+                  <br />
+                  <input ref={zipCodeRef} type="text" id="zipCode" name="zipCode" required></input>
+                  <br />
+                </div>
+              </div>
+            </div>
+
+            <div className={styles.textField}>
+              <label htmlFor="phone">Phone number *</label>
+              <br />
+              <input ref={phoneRef} type="number" id="phone" name="phone" required></input>
               <br />
             </div>
             <div className={styles.textField}>
-              <label htmlFor="zipCode">Zipcode *</label>
+              <label htmlFor="major">Your academic major. *</label>
               <br />
-              <input ref={zipCodeRef} type="text" id="zipCode" name="zipCode" required></input>
+              <input ref={majorRef} type="text" id="major" name="major" required></input>
               <br />
             </div>
-          </div>
-        </div>
 
-        <div className={styles.textField}>
-          <label htmlFor="phone">Phone number *</label>
-          <br />
-          <input ref={phoneRef} type="number" id="phone" name="phone" required></input>
-          <br />
-        </div>
-        <div className={styles.textField}>
-          <label htmlFor="major">Your academic major. *</label>
-          <br />
-          <input ref={majorRef} type="text" id="major" name="major" required></input>
-          <br />
-        </div>
+            <div className={styles.textField}>
+              <label htmlFor="virtualStudyGroup">List any course(s) where you have an interest in joining virtual study group(s) or tutoring sessions?</label>
+              <br />
+              <input ref={studyGroupRef} type="text" id="virtualStudyGroup" name="virtualStudyGroup"></input>
+              <br />
+            </div>
 
-        <div className={styles.textField}>
-          <label htmlFor="virtualStudyGroup">List any course(s) where you have an interest in joining virtual study group(s) or tutoring sessions?</label>
-          <br />
-          <input ref={studyGroupRef} type="text" id="virtualStudyGroup" name="virtualStudyGroup"></input>
-          <br />
-        </div>
+            <RadioSelect selectHandler={selectHandler} data={mentoringCommiteeChoice} />
+            <RadioSelect selectHandler={selectHandler} data={meetingTimeChoice} />
 
-        <RadioSelect selectHandler={selectHandler} data={mentoringCommiteeChoice} />
-        <RadioSelect selectHandler={selectHandler} data={meetingTimeChoice} />
+            <Checkbox checkHandler={checkHandler} data={EOP_Scholars_Choice} />
+            <RadioSelect selectHandler={selectHandler} data={unitsChoice} />
+            <RadioSelect selectHandler={selectHandler} data={gpaChoice} />
+            <RadioSelect selectHandler={selectHandler} data={priorMemberChoice} />
+            {state.priorMember === "Yes" ? <RadioSelect selectHandler={selectHandler} data={permanentMemberChoice} /> : <> </>}
 
-        <Checkbox checkHandler={checkHandler} data={EOP_Scholars_Choice} />
-        <RadioSelect selectHandler={selectHandler} data={unitsChoice} />
-        <RadioSelect selectHandler={selectHandler} data={gpaChoice} />
-        <RadioSelect selectHandler={selectHandler} data={priorMemberChoice} />
-        {state.priorMember === "Yes" ? <RadioSelect selectHandler={selectHandler} data={permanentMemberChoice} /> : <> </>}
-
-        <br />
-        <p>According to the information you provided above, you might qualify for AGS {state.memberShip}.</p>
-        <Link href="/membershiptypes">
-          <p style={{ textDecoration: "underLine" }}>AGS membership types</p>
-        </Link>
-        <p style={{ color: "red" }}>{warningText}</p>
-
-        <div className={styles.textField}>
-          <label htmlFor="virtualStudyGroup">
-            An SMC club advisor will review your unofficial Transcript and AS student fees to verify your membership eligibility. Please upload proof of your GPA and AS student
-            payment by
-            <a target="_blank" rel="noreferrer" href={transcriptUploadLink} style={{ textDecoration: "underLine", color: "blue" }}>
-              {" "}
-              submitting this Google form
-            </a>{" "}
-            to get your file uplaod confirmation code. <strong>Only SMC Advisors are allowed to access these files that you upload.</strong>
             <br />
-            Your file uplaod confirmation code.
-          </label>
-          <br />
-          <input ref={fileUploadConfirmCodeRef} type="text" id="virtualStudyGroup" name="virtualStudyGroup"></input>
-          <br />
-          <p style={{ color: "red" }}>{fileUploadWarning}</p>
-        </div>
+            <p>According to the information you provided above, you might qualify for AGS {state.memberShip}.</p>
+            <Link href="/membershiptypes">
+              <p style={{ textDecoration: "underLine" }}>AGS membership types</p>
+            </Link>
+            <p style={{ color: "red" }}>{warningText}</p>
 
-        <br />
-        <div className={`${styles.box} ${styles.agreements}`}>
-          <h3>Agreement</h3>
-          <p>
-            I have read{" "}
-            <a
-              target="_blank"
-              rel="noreferrer"
-              style={{ color: "blue", textDecoration: "underline" }}
-              href="https://docs.google.com/document/d/1_3jQAZ2ijFXS6oyOEwVnO43ueZHWPrH2/edit#heading=h.gjdgxs"
-            >
-              the AGS club constitution
-            </a>{" "}
-            and am aware of all items in the constitution that apply.
-          </p>
-          <p>
-            I have read the{" "}
-            <a
-              target="_blank"
-              rel="noreferrer"
-              style={{ color: "blue", textDecoration: "underline" }}
-              href="https://docs.google.com/forms/d/e/1FAIpQLSeOI-yKidAd62S_nj125dVAwZpQSeQEAAEPeeU5M7URtkT5lA/formResponse"
-            >
-              VIVO Orientation Packet
-            </a>
-          </p>
-          <p>
-            My $10 scholarship dues is non-refundable. I understand that dues are paid at www.paypal.com at agssmc2020@gmail.com, within four weeks of submission of this
-            application. In the Memo Line: Write your last name, first name, AGS Dues Spring 2022. You can choose to "Pay a business" and AGS will pay the transaction fee.
-          </p>
-          <p>
-            I will abide by the{" "}
-            <a
-              target="_blank"
-              rel="noreferrer"
-              style={{ color: "blue", textDecoration: "underline" }}
-              href="https://www.smc.edu/administration/governance/documents/administrative-regulations/AR_4410_StudentConductRules.pdf"
-            >
-              SMC Code of Conduct
-            </a>{" "}
-            , and if I violate the Code of Conduct I may be suspended or expelled from the club and/or reported to the Campus Disciplinarian.
-          </p>
-          <p>I am subject to removal of the club for any misconduct, including falsely reporting the completion of hours, socials, or attendance at meetings.</p>
-          <p>I will not receive three negative ones (explained at the general meetings).</p>
-          <div>
-            <p>I will complete these following requirements in order to receive an AGS transcript notation. *</p>
-            <ul>
-              <li>Complete Virtual Independent Volunteer Opportunities (VIVOs) hours or join a committee and complete all committee requirements</li>
-              <li>Attend 5 General Meetings</li>
-              <li>Attend two AGS Sponsored Socials or attend two SMC Sponsored Workshops</li>
-              <li>Satisfy the Initial, Continuing, Temporary, or Permanent Membership requirements.</li>
-            </ul>
-          </div>
-          <label htmlFor="signature">
-            By typing my name <strong>{session.name} </strong> below, I agree and aware of all the Agreement and the requirements abow. I am confirming that I will comply with the
-            AGS club by-laws, SMC Code of Conduct, and agree to all the requirements of being an AGS member and to earn an AGS transcript notation.
-          </label>
-          <br />
-          <input ref={signatureRef} className={styles.signature} id="signature" required></input>
+            <div className={styles.textField}>
+              <label htmlFor="virtualStudyGroup">
+                An SMC club advisor will review your unofficial Transcript and AS student fees to verify your membership eligibility. Please upload proof of your GPA and AS student
+                payment by
+                <a target="_blank" rel="noreferrer" href={transcriptUploadLink} style={{ textDecoration: "underLine", color: "blue" }}>
+                  {" "}
+                  submitting this Google form
+                </a>{" "}
+                to get your file uplaod confirmation code. <strong>Only SMC Advisors are allowed to access these files that you upload.</strong>
+                <br />
+                Your file uplaod confirmation code.
+              </label>
+              <br />
+              <input ref={fileUploadConfirmCodeRef} type="text" id="virtualStudyGroup" name="virtualStudyGroup"></input>
+              <br />
+              <p style={{ color: "red" }}>{fileUploadWarning}</p>
+            </div>
 
-          <p style={{ color: "red" }}>{signatureWarning}</p>
-          <p style={{ color: "red" }}>{submitWarning}</p>
-          <button type="submit" className={styles.submitButton}>
-            Submit
-          </button>
+            <br />
+            <div className={`${styles.box} ${styles.agreements}`}>
+              <h3>Agreement</h3>
+              <p>
+                I have read{" "}
+                <a
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{ color: "blue", textDecoration: "underline" }}
+                  href="https://docs.google.com/document/d/1_3jQAZ2ijFXS6oyOEwVnO43ueZHWPrH2/edit#heading=h.gjdgxs"
+                >
+                  the AGS club constitution
+                </a>{" "}
+                and am aware of all items in the constitution that apply.
+              </p>
+              <p>
+                I have read the{" "}
+                <a
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{ color: "blue", textDecoration: "underline" }}
+                  href="https://docs.google.com/forms/d/e/1FAIpQLSeOI-yKidAd62S_nj125dVAwZpQSeQEAAEPeeU5M7URtkT5lA/formResponse"
+                >
+                  VIVO Orientation Packet
+                </a>
+              </p>
+              <p>
+                My $10 scholarship dues is non-refundable. I understand that dues are paid at www.paypal.com at agssmc2020@gmail.com, within four weeks of submission of this
+                application. In the Memo Line: Write your last name, first name, AGS Dues Spring 2022. You can choose to "Pay a business" and AGS will pay the transaction fee.
+              </p>
+              <p>
+                I will abide by the{" "}
+                <a
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{ color: "blue", textDecoration: "underline" }}
+                  href="https://www.smc.edu/administration/governance/documents/administrative-regulations/AR_4410_StudentConductRules.pdf"
+                >
+                  SMC Code of Conduct
+                </a>{" "}
+                , and if I violate the Code of Conduct I may be suspended or expelled from the club and/or reported to the Campus Disciplinarian.
+              </p>
+              <p>I am subject to removal of the club for any misconduct, including falsely reporting the completion of hours, socials, or attendance at meetings.</p>
+              <p>I will not receive three negative ones (explained at the general meetings).</p>
+              <div>
+                <p>I will complete these following requirements in order to receive an AGS transcript notation. *</p>
+                <ul>
+                  <li>Complete Virtual Independent Volunteer Opportunities (VIVOs) hours or join a committee and complete all committee requirements</li>
+                  <li>Attend 5 General Meetings</li>
+                  <li>Attend two AGS Sponsored Socials or attend two SMC Sponsored Workshops</li>
+                  <li>Satisfy the Initial, Continuing, Temporary, or Permanent Membership requirements.</li>
+                </ul>
+              </div>
+              <label htmlFor="signature">
+                By typing my name <strong>{session.name} </strong> below, I agree and aware of all the Agreement and the requirements abow. I am confirming that I will comply with
+                the AGS club by-laws, SMC Code of Conduct, and agree to all the requirements of being an AGS member and to earn an AGS transcript notation.
+              </label>
+              <br />
+              <input ref={signatureRef} className={styles.signature} id="signature" required></input>
+
+              <p style={{ color: "red" }}>{signatureWarning}</p>
+              <p style={{ color: "red" }}>{submitWarning}</p>
+              <button type="submit" className={styles.submitButton}>
+                Submit
+              </button>
+            </div>
+          </form>
         </div>
-      </form>
-    </div>
+      )}
+    </>
   );
 }
 

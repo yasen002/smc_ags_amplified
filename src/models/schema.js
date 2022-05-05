@@ -245,6 +245,27 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
+                "status": {
+                    "name": "status",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "semester": {
+                    "name": "semester",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "year": {
+                    "name": "year",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "signupForm": {
                     "name": "signupForm",
                     "isArray": false,
@@ -305,5 +326,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "b813c1310e0b1924e5a09e0f3018317e"
+    "version": "df3bef8cbeed686aec2d0e4681aedf4c"
 };
