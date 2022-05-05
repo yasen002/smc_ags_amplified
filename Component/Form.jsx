@@ -116,9 +116,7 @@ function Form({ attributes }) {
       var signature = signatureRef.current.value;
       var preferredName = preferredNameRef.current.value;
       var fileUploadCode = fileUploadConfirmCodeRef.current.value;
-      var officialName = session.name.replace(/ /g, "").toUpperCase();
-      var signedName = signature.replace(/ /g, "").toUpperCase();
-      if (officialName !== signedName) {
+      if (officialName.replace(/ /g, "").toUpperCase() !== signature.replace(/ /g, "").toUpperCase()) {
         setSignatureWarning(`Your signature must exactly match your official full name: ${session.name}`);
         return;
       } else {
