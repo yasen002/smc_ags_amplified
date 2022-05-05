@@ -1,4 +1,4 @@
-type Student @model @auth(rules: [{allow: public}]) {
+type Student @model @auth(rules: [{ allow: public }]) {
   id: ID!
   officialName: String
   preferredName: String
@@ -26,4 +26,11 @@ type Student @model @auth(rules: [{allow: public}]) {
   workshops: String
   negative: String
 }
- 
+
+type Chapter @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  semester: String
+  year: String
+  signupForm: String
+  officers: [String]
+}

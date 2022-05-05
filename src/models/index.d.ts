@@ -8,6 +8,10 @@ type StudentMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
+type ChapterMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
 export declare class Student {
   readonly id: string;
   readonly officialName?: string | null;
@@ -39,4 +43,14 @@ export declare class Student {
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<Student, StudentMetaData>);
   static copyOf(source: Student, mutator: (draft: MutableModel<Student, StudentMetaData>) => MutableModel<Student, StudentMetaData> | void): Student;
+}
+
+export declare class Chapter {
+  readonly id: string;
+  readonly signupForm?: string | null;
+  readonly officers?: (string | null)[] | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+  constructor(init: ModelInit<Chapter, ChapterMetaData>);
+  static copyOf(source: Chapter, mutator: (draft: MutableModel<Chapter, ChapterMetaData>) => MutableModel<Chapter, ChapterMetaData> | void): Chapter;
 }
