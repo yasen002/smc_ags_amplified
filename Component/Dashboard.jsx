@@ -12,7 +12,8 @@ export default function Dashboard({ data }) {
     const socials = socialsProgress(data.socials);
     const workshops = workshopsProgress(data.workshops);
     const payment = paymentProgress(data.payment);
-    setProgress({ negative, vivo, committee, socials, workshops, payment });
+    const attendance = attendanceProgress(data.meetingAttendance)
+    setProgress({ negative, vivo, committee, socials, workshops, payment, attendance });
     return () => {
       setProgress(null);
     };
@@ -32,7 +33,7 @@ export default function Dashboard({ data }) {
           <div className={$.progressContainer}>
             <Circle desc={progress.vivo.desc} percent={progress.vivo.percent} title="vivo" />
             <Circle desc={progress.committee.desc} percent={progress.committee.percent} title="committee credit" />
-            {/* <Circle desc={progress} percent={50} title="attendance" /> */}
+            <Circle desc={progress.attendance.desc} percent={progress.attendance.percent} title="attendance" />
             <Circle desc={progress.socials.desc} percent={progress.socials.percent} title="socials" />
             <Circle desc={progress.workshops.desc} percent={progress.workshops.percent} title="workshops" />
             <Circle desc={progress.negative.desc} percent={progress.negative.percent} title="negative one" />
@@ -99,5 +100,15 @@ function negativeProgress(data) {
   const percent = data / total;
   percent *= 100;
   const desc = `${data} negative violation `;
+  return { percent: percent, desc: desc };
+}
+
+
+function attendanceProgress(data) {
+  data = parseIntData(data);
+  const total = 5.0;
+  const percent = data / total;
+  percent *= 100;
+  const desc = `${data}/${total} attendance recorded.`;
   return { percent: percent, desc: desc };
 }
