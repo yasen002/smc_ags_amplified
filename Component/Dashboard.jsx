@@ -13,7 +13,8 @@ export default function Dashboard({ data }) {
     const workshops = workshopsProgress(data.workshops);
     const payment = paymentProgress(data.payment);
     const attendance = attendanceProgress(data.meetingAttendance)
-    setProgress({ negative, vivo, committee, socials, workshops, payment, attendance });
+    const chapterInvolvement = chapterInvolvementProgress(data.chapterInvolvement);
+    setProgress({ negative, vivo, committee, socials, workshops, payment, attendance ,chapterInvolvement});
     return () => {
       setProgress(null);
     };
@@ -38,6 +39,9 @@ export default function Dashboard({ data }) {
             <Circle desc={progress.workshops.desc} percent={progress.workshops.percent} title="workshops" />
             <Circle desc={progress.negative.desc} percent={progress.negative.percent} title="negative one" />
             <Circle desc={progress.payment.desc} percent={progress.payment.percent} title="scholarship dues" />
+            <Circle desc={progress.chapterInvolvement.desc} percent={progress.chapterInvolvement.percent} title="chapter involvements" />
+
+            {/* chapterInvolvement */}
           </div>
         </div>
       )}
@@ -105,6 +109,16 @@ function negativeProgress(data) {
 
 
 function attendanceProgress(data) {
+  data = parseIntData(data);
+  const total = 5.0;
+  const percent = data / total;
+  percent *= 100;
+  const desc = `${data}/${total} attendance recorded.`;
+  return { percent: percent, desc: desc };
+}
+
+
+function chapterInvolvementProgress(data){
   data = parseIntData(data);
   const total = 5.0;
   const percent = data / total;
